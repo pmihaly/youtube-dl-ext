@@ -6,7 +6,10 @@ const ytdl = require('ytdl-core');
 const dotenv = require('dotenv').config();
 
 const app = express();
-app.use(morgan('tiny'));
+
+if (typeof global.it !== 'function') {
+  app.use(morgan('tiny'));
+}
 
 const PORT = process.env.PORT || 3000;
 
