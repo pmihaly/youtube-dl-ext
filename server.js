@@ -17,17 +17,28 @@ app.get('/ping', (_, res) => {
   res.json({ result: 'pong' });
 });
 
-app.get('/:videoId', (req, res) => {
+app.get('/:videoId', async (req, res) => {
   const { videoId } = req.params;
 
-  ytdl.getInfo(videoId).then((info) => {
+  try {
+    const info = await ytdl.getInfo(videoId);
+
     const { title } = info.videoDetails;
     const videoPath = `${path.join(process.env.DL_PATH, title)}.mkv`;
 
     ytdl(`https://youtube.com/watch?v=${videoId}`).pipe(fs.createWriteStream(videoPath));
 
     res.json({ success: true, videoPath });
-  });
+  } catch (error) {
+    let errCode;
+    if (error === `Error: no video id found: ${videoId}`){
+      errCode = 404;
+    } else {
+      errCode = 500;
+    }
+
+    res.status(errCode).json({ success: false, error:error.toString() });
+  }
 });
 
 app.listen(PORT, () => console.log(`Server started on port ${PORT}...`));

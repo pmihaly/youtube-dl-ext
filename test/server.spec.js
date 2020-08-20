@@ -40,4 +40,15 @@ describe('GET /:videoId', () => {
     chai.expect(videoPath).to.be.a.path();
     done();
   });
+
+  it('throws error when video doesn\'t exist', (done) => {
+    request(app).get(`/surelydoesntexist`).expect('Content-Type', /json/).expect(
+      404,
+      {
+        success: false,
+        error: "Error: No video id found: surelydoesntexist",
+      },
+      done()
+    );
+  });
 });
