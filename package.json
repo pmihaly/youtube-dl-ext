@@ -7,7 +7,7 @@
     "start": "node server.js",
     "dev": "nodemon server.js",
     "prettier": "prettier --write ./*.j* test/*.spec.js",
-    "test": "mocha --exit || exit 0"
+    "test": "mocha --exit"
   },
   "keywords": [],
   "author": "",
