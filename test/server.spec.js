@@ -8,6 +8,7 @@ const app = require('../server');
 chai.use(require('chai-fs'));
 
 const TEST_VIDEO = { title: 'City Morgue - Toxic Boogaloo EP REVIEW', id: 'CH0ix7D-vr0' };
+const DL_PATH = process.env.DL_PATH || __dirname;
 
 describe('GET /ping', () => {
   const req = request(app).get('/ping');
@@ -23,7 +24,7 @@ describe('GET /ping', () => {
 
 describe('GET /:videoId', () => {
   const req = request(app).get(`/${TEST_VIDEO.id}`);
-  const videoPath = `${path.join(process.env.DL_PATH, TEST_VIDEO.title)}.mkv`;
+  const videoPath = `${path.join(DL_PATH, TEST_VIDEO.title)}.mkv`;
 
   it('responds correctly', (done) => {
     req.expect('Content-Type', /json/).expect(

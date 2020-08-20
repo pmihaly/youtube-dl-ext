@@ -12,6 +12,7 @@ if (typeof global.it !== 'function') {
 }
 
 const PORT = process.env.PORT || 3000;
+const DL_PATH = process.env.DL_PATH || __dirname;
 
 app.get('/ping', (_, res) => {
   res.json({ result: 'pong' });
@@ -24,7 +25,7 @@ app.get('/:videoId', async (req, res) => {
     const info = await ytdl.getInfo(videoId);
 
     const { title } = info.videoDetails;
-    const videoPath = `${path.join(process.env.DL_PATH, title)}.mkv`;
+    const videoPath = `${path.join(DL_PATH, title)}.mkv`;
 
     ytdl(`https://youtube.com/watch?v=${videoId}`).pipe(fs.createWriteStream(videoPath));
 
