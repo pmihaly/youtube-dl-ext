@@ -12,7 +12,7 @@ if (typeof global.it !== 'function') {
 }
 
 const PORT = process.env.PORT || 3000;
-const DL_PATH = process.env.DL_PATH || __dirname;
+const DL_PATH = process.env.DL_PATH || process.env.GITHUB_WORKSPAC || __dirname;
 
 app.get('/ping', (_, res) => {
   res.json({ result: 'pong' });
