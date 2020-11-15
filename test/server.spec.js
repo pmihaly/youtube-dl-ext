@@ -7,7 +7,7 @@ const app = require('../server');
 
 chai.use(require('chai-fs'));
 
-const TEST_VIDEO = { title: 'City Morgue - Toxic Boogaloo EP REVIEW', id: 'CH0ix7D-vr0' };
+const TEST_VIDEO = { title: 'Wippermann Chain Test Video', id: 'RGjcD8xEu8o' };
 const DL_PATH = process.env.DL_PATH || process.env.GITHUB_WORKSPACE || __dirname;
 
 describe('GET /ping', () => {
